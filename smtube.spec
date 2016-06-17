@@ -25,7 +25,7 @@ and play YouTube videos.
 %setup -q
 
 # correction for wrong-file-end-of-line-encoding
-%{__sed} -i 's/\r//' *.txt
+sed -i 's/\r//' *.txt
 # fix files which are not UTF-8 
 #iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog
 #mv Changelog.utf8 Changelog
@@ -46,11 +46,9 @@ popd
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %post
-/usr/bin/update-desktop-database &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
-/usr/bin/update-desktop-database &> /dev/null || :
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
