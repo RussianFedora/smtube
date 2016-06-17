@@ -1,5 +1,3 @@
-%global debug_package %{nil}
-
 Name:           smtube
 Version:        16.6.0
 Release:        2%{?dist}
@@ -29,22 +27,20 @@ and play YouTube videos.
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
 # fix files which are not UTF-8 
-iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog 
-mv Changelog.utf8 Changelog
+#iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog
+#mv Changelog.utf8 Changelog
+sed -i 's/.*DOC_PATH.*//g' Makefile
+sed -i "s|PREFIX=/usr/local|PREFIX=%{_prefix}|" Makefile
 
 %build
-make \
-    QMAKE=%{_qt5_qmake} \
-    LRELEASE=%{_bindir}/lrelease-qt5 \
-    PREFIX=%{_prefix} \
-    DOC_PATH="\\\"%{_docdir}/%{name}/\\\""
-
-#touch src/smtube
-#touch src/translations/smtube_es.qm
+pushd src
+    %{qmake_qt5}
+    %make_build TRANSLATION_PATH=\\\"%{_datadir}/%{name}/translations\\\"
+    %{_bindir}/lrelease-qt5 %{name}.pro
+popd
 
 %install
-%make_install PREFIX=%{_prefix}
-rm -rf %{buildroot}%{_docdir}
+%make_install
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
