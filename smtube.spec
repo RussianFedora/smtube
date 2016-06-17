@@ -43,7 +43,8 @@ make \
 #touch src/translations/smtube_es.qm
 
 %install
-make PREFIX=%{_prefix} DESTDIR=%{buildroot}/ DOC_PATH=%{_docdir}/%{name}/ install
+%make_install PREFIX=%{_prefix}
+rm -rf %{buildroot}%{_docdir}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
@@ -63,12 +64,12 @@ fi
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
+%doc Changelog Readme.txt Release_notes.txt
+%license Copying.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/%{name}
-#%{_mandir}/man1/smtube.1.gz
-%{_docdir}/%{name}
 
 %changelog
 * Fri Jun 17 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.6.0-2
