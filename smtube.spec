@@ -6,7 +6,7 @@ Summary:        YouTube browser for SMPlayer
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://www.smtube.org
-Source0:        http://downloads.sourceforge.net/smtube/smtube-%{version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/smtube/%{name}-%{version}.tar.bz2
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
