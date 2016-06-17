@@ -1,6 +1,8 @@
+%global debug_package %{nil}
+
 Name:           smtube
 Version:        16.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        YouTube browser for SMPlayer
 
 Group:          Applications/Multimedia
@@ -43,32 +45,33 @@ make \
 %install
 make PREFIX=%{_prefix} DESTDIR=%{buildroot}/ DOC_PATH=%{_docdir}/%{name}/ install
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+
 %post
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-fi
-update-desktop-database &> /dev/null || :
+/usr/bin/update-desktop-database &> /dev/null || :
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+/usr/bin/update-desktop-database &> /dev/null || :
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
-update-desktop-database &> /dev/null || :
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
 %{_bindir}/%{name}
 %{_datadir}/applications/*.desktop
-%dir %{_datadir}/icons/hicolor/*/
-%dir %{_datadir}/icons/hicolor/*/apps/
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/%{name}
 #%{_mandir}/man1/smtube.1.gz
 %{_docdir}/%{name}
 
 %changelog
-* Fri Jun 17 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.6.0-1
+* Fri Jun 17 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.6.0-2
 - Clean spec for Fedora
 
 * Fri Feb 26 2016 Ricardo Villalba <rvm@users.sourceforge.net> - 16.1.0
