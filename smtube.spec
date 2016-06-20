@@ -16,6 +16,7 @@ BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 BuildRequires:  pkgconfig(Qt5Designer)
 
 Requires:       smplayer
+Requires:       hicolor-icon-theme
 
 %description
 This is a YouTube browser for SMPlayer. You can browse, search
