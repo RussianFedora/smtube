@@ -1,6 +1,6 @@
 Name:           smtube
-Version:        16.6.0
-Release:        2%{?dist}
+Version:        16.7.0
+Release:        1%{?dist}
 Summary:        YouTube browser for SMPlayer
 
 Group:          Applications/Multimedia
@@ -67,6 +67,9 @@ fi
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jun 30 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.7.0-1
+- Update to 16.7.0
+
 * Fri Jun 17 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.6.0-2
 - Clean spec for Fedora
 
