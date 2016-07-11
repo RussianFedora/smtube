@@ -1,5 +1,5 @@
 Name:           smtube
-Version:        16.7.0
+Version:        16.7.2
 Release:        1%{?dist}
 Summary:        YouTube browser for SMPlayer
 
@@ -67,6 +67,9 @@ fi
 %{_datadir}/%{name}
 
 %changelog
+* Mon Jul 11 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.7.2-1
+- Update to 16.7.2
+
 * Thu Jun 30 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.7.0-1
 - Update to 16.7.0
 
